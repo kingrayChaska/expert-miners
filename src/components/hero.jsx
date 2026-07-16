@@ -22,21 +22,23 @@ const Hero = () => {
     <section className="pt-[168px] pb-[100px] relative overflow-hidden">
       <div
         className="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(245,197,24,0.18) 0%, transparent 70%)" }}
+        style={{
+          background:
+            "radial-gradient(circle, rgba(245,197,24,0.18) 0%, transparent 70%)",
+        }}
       />
 
       <div className="max-w-[1180px] mx-auto px-[28px] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[60px] items-center">
         <div>
-
           <h1 className="text-[34px] md:text-[46px] lg:text-[58px] leading-[1.08] font-[700] text-white mb-[22px]">
             Precision repair for miners that can&apos;t afford{" "}
             <span className="gold-text">downtime</span>.
           </h1>
 
           <p className="text-[17px] text-[#9aa0c2] max-w-[560px]">
-            Hashboard diagnostics, PSU repair, deep cleaning and preventive maintenance for Bitcoin
-            ASIC miners — serving individuals and mining operations across the UAE with fast
-            turnaround and tested solutions.
+            Hashboard diagnostics, PSU repair, deep cleaning and preventive
+            maintenance for Bitcoin ASIC miners serving individuals and mining
+            operations across the UAE with fast turnaround and tested solutions.
           </p>
 
           <div className="flex flex-wrap gap-[14px] mt-[34px]">
@@ -59,8 +61,12 @@ const Hero = () => {
           <div className="flex flex-wrap gap-[38px] mt-[52px]">
             {stats.map((stat) => (
               <div key={stat.label}>
-                <div className="font-mono text-[26px] font-[600] text-gold">{stat.num}</div>
-                <div className="text-[12.5px] text-[#9aa0c2] mt-[4px] max-w-[120px]">{stat.label}</div>
+                <div className="font-mono text-[26px] font-[600] text-gold">
+                  {stat.num}
+                </div>
+                <div className="text-[12.5px] text-[#9aa0c2] mt-[4px] max-w-[120px]">
+                  {stat.label}
+                </div>
               </div>
             ))}
           </div>
@@ -68,7 +74,7 @@ const Hero = () => {
 
         <div className="bg-navy-panel border border-navy-line rounded-[10px] p-[22px] relative overflow-hidden">
           <div className="flex justify-between items-center mb-[16px] font-mono text-[11px] text-[#9aa0c2] tracking-[0.08em] uppercase">
-            <span>Hashboard Diagnostic — Live Scan</span>
+            <span>Hashboard Diagnostic Live Scan</span>
             <span className="flex items-center gap-[6px] text-gold">
               <span className="live-dot w-[6px] h-[6px] rounded-full bg-gold inline-block" />
               Scanning
@@ -80,7 +86,9 @@ const Hero = () => {
               <div
                 key={i}
                 className={`aspect-square rounded-[2px] border border-navy-line ${
-                  faultyChips.has(i) ? "chip-fault bg-gold-dim" : "bg-navy-panel2"
+                  faultyChips.has(i)
+                    ? "chip-fault bg-gold-dim"
+                    : "bg-navy-panel2"
                 }`}
               />
             ))}

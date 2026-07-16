@@ -1,5 +1,3 @@
-import logo from "./logo.png";
-
 export const Assets = {
-  logo,
+  logo: "/EMP-preview.png",
 };

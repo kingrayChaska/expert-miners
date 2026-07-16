@@ -20,9 +20,9 @@ const Header = ({ theme, toggleTheme }) => {
       <nav className="max-w-[1180px] mx-auto flex justify-between items-center px-[28px] py-[14px]">
         <a href="#" className="flex items-center gap-[10px]">
           <img
-            src={Assets.logo}
+            src="/EMP-preview.png"
             alt="Expert Miners logo"
-            className="h-[38px] w-auto"
+            className="h-[58px] w-auto"
           />
           <span className="font-[800] text-[18px] tracking-[-0.01em] text-white hidden sm:inline">
             EXPERT <span className="gold-text">MINERS</span>
