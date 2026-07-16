@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg-body: #05061f;
+  --bg-panel: #0d1030;
+  --bg-panel2: #141838;
+  --border: #23274d;
+  --text-main: #ffffff;
+  --text-muted: #9aa0c2;
+  --text-gold: #f5c518;
+  --text-gold-dim: #8a6d10;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html.theme-light {
+  color-scheme: light;
+  --bg-body: #f4f6fb;
+  --bg-panel: #ffffff;
+  --bg-panel2: #eef2f8;
+  --border: #d8deeb;
+  --text-main: #111827;
+  --text-muted: #5b6474;
+  --text-gold: #b47b00;
+  --text-gold-dim: #8a6d10;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-main);
+  font-family: "Poppins", sans-serif;
+  transition:
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.bg-navy-deep {
+  background-color: var(--bg-body) !important;
+}
+
+.bg-navy-panel {
+  background-color: var(--bg-panel) !important;
+}
+
+.bg-navy-panel2 {
+  background-color: var(--bg-panel2) !important;
+}
+
+.border-navy-line {
+  border-color: var(--border) !important;
+}
+
+.text-white {
+  color: var(--text-main) !important;
+}
+
+.text-\[\#9aa0c2\] {
+  color: var(--text-muted) !important;
+}
+
+.text-gold {
+  color: var(--text-gold) !important;
+}
+
+.text-gold-dim {
+  color: var(--text-gold-dim) !important;
+}
+
+.gold-text {
+  color: var(--text-gold) !important;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.service-card {
+  opacity: 0;
+}
+
+.service-card.visible {
+  animation: fadeUp 0.55s ease both;
+}
