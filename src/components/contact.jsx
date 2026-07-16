@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const WEB3FORMS_ACCESS_KEY = "YOUR_WEB3FORMS_ACCESS_KEY";
+const WEB3FORMS_ACCESS_KEY = "b91ed106-a4b7-47a9-923c-8ad12d1c5fdb";
 
 const inputClass =
   "w-full bg-navy-panel border border-navy-line rounded-[6px] px-[14px] py-[12px] text-white text-[14.5px] focus:outline-none focus:border-gold transition-colors";
@@ -42,9 +42,6 @@ const Contact = () => {
     <section id="contact" className="py-[100px]">
       <div className="max-w-[1180px] mx-auto px-[28px]">
         <div className="mb-[56px]">
-          <div className="eyebrow flex items-center gap-[10px] font-mono text-[12px] tracking-[0.18em] uppercase text-gold mb-[16px]">
-            Contact Us
-          </div>
           <h2 className="text-[28px] md:text-[42px] font-[700] text-white mb-[16px]">
             Have a miner that needs repair?
           </h2>
