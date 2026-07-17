@@ -43,7 +43,7 @@ const Contact = () => {
       <div className="max-w-[1180px] mx-auto px-[28px]">
         <div className="mb-[56px]">
           <h2 className="text-[28px] md:text-[42px] font-[700] text-white mb-[16px]">
-            Have a miner that needs repair?
+            Have a miner that needs <span className="gold-text">repair?</span>
           </h2>
           <p className="text-[17px] text-[#9aa0c2] max-w-[560px]">
             Fill out the form and our team will get in touch — or message us
@@ -182,7 +182,7 @@ const Contact = () => {
                 <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-[3px]">
                   Call Us Anytime
                 </div>
-                <div className="text-[14.5px] text-white">+971 58 801 6895</div>
+                <div className="text-[14.5px] text-white">+971 50 156 2488</div>
               </div>
             </div>
 
@@ -227,7 +227,7 @@ const Contact = () => {
                   Visit Our Location
                 </div>
                 <div className="text-[14.5px] text-white">
-                  33 Al Qunout 8 St – Al Noud – Wadi Al Ain 1 – Abu Dhabi – UAE
+                  Warehouse 6, 19th street, Al noud. Al ain - Abu Dhabi, UAE
                 </div>
               </div>
             </div>

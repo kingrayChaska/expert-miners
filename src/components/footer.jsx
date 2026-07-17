@@ -18,6 +18,8 @@ const Footer = () => {
               <img
                 src={Assets.logo}
                 alt="Expert Miners logo"
+                width="558"
+                height="447"
                 className="h-[34px] w-auto"
               />
               <span className="font-[800] text-[18px] text-white">

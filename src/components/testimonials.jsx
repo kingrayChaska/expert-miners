@@ -27,9 +27,8 @@ const Testimonials = () => {
     <section id="testimonials" className="py-[100px]">
       <div className="max-w-[1180px] mx-auto px-[28px]">
         <div className="mb-[56px]">
-          
           <h2 className="text-[28px] md:text-[42px] font-[700] text-white">
-            Trusted by miners across the UAE.
+            Trusted by <span className="gold-text">miners across the UAE</span>.
           </h2>
         </div>
 
@@ -48,7 +47,9 @@ const Testimonials = () => {
                   {t.initials}
                 </div>
                 <div>
-                  <div className="text-[14px] font-[600] text-white">{t.name}</div>
+                  <div className="text-[14px] font-[600] text-white">
+                    {t.name}
+                  </div>
                   <div className="text-[12.5px] text-[#9aa0c2]">{t.role}</div>
                 </div>
               </div>

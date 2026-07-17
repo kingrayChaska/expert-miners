@@ -1,3 +1,3 @@
 export const Assets = {
-  logo: "/EMP-preview.png",
+  logo: "/EMP-preview.webp",
 };

@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 
 const WHATSAPP_LINK =
-  "https://wa.me/971588016895?text=Hello%20Expert%20Miners%2C%20I%20need%20professional%20ASIC%20miner%20repair%20services.%20Please%20share%20details%20about%20diagnosis%2C%20repair%20process%2C%20and%20pricing.";
+  "https://wa.me/971501562488?text=Hello%20Expert%20Miners%2C%20I%20need%20professional%20ASIC%20miner%20repair%20services.%20Please%20share%20details%20about%20diagnosis%2C%20repair%20process%2C%20and%20pricing.";
 
 const stats = [
   { num: "1000+", label: "Miners repaired successfully" },
@@ -19,7 +19,13 @@ const Hero = () => {
   }, []);
 
   return (
-    <section className="pt-[168px] pb-[100px] relative overflow-hidden">
+    <section
+      className="pt-[168px] pb-[100px] relative overflow-hidden bg-cover bg-center"
+      style={{
+        backgroundImage: "url('/technician.webp')",
+      }}
+    >
+      <div className="hero-overlay absolute inset-0 bg-black/65" />
       <div
         className="absolute -top-[200px] -right-[200px] w-[600px] h-[600px] rounded-full pointer-events-none"
         style={{
@@ -28,14 +34,14 @@ const Hero = () => {
         }}
       />
 
-      <div className="max-w-[1180px] mx-auto px-[28px] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[60px] items-center">
+      <div className="relative max-w-[1180px] mx-auto px-[28px] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[60px] items-center">
         <div>
           <h1 className="text-[34px] md:text-[46px] lg:text-[58px] leading-[1.08] font-[700] text-white mb-[22px]">
             Precision repair for miners that can&apos;t afford{" "}
             <span className="gold-text">downtime</span>.
           </h1>
 
-          <p className="text-[17px] text-[#9aa0c2] max-w-[560px]">
+          <p className="text-[17px] text-[#c7cadc] max-w-[560px]">
             Hashboard diagnostics, PSU repair, deep cleaning and preventive
             maintenance for Bitcoin ASIC miners serving individuals and mining
             operations across the UAE with fast turnaround and tested solutions.

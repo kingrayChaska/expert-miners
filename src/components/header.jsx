@@ -20,8 +20,10 @@ const Header = ({ theme, toggleTheme }) => {
       <nav className="max-w-[1180px] mx-auto flex justify-between items-center px-[28px] py-[14px]">
         <a href="#" className="flex items-center gap-[10px]">
           <img
-            src="/EMP-preview.png"
+            src="/EMP-preview.webp"
             alt="Expert Miners logo"
+            width="558"
+            height="447"
             className="h-[58px] w-auto"
           />
           <span className="font-[800] text-[18px] tracking-[-0.01em] text-white hidden sm:inline">
@@ -63,7 +65,7 @@ const Header = ({ theme, toggleTheme }) => {
 
           <button
             aria-label="Toggle theme"
-            className="flex h-[40px] w-[40px] items-center justify-center rounded-[8px] border border-navy-line bg-navy-panel/80 text-white transition-all duration-300 ease-out"
+            className="flex h-[40px] w-[40px] items-center justify-center rounded-[8px] border border-navy-line bg-transparent text-white transition-all duration-300 ease-out"
             onClick={toggleTheme}
           >
             {theme === "dark" ? "☀︎" : "☾"}

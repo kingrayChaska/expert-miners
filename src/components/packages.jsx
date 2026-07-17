@@ -1,20 +1,32 @@
 const WHATSAPP_LINK =
-  "https://wa.me/971588016895?text=Hello%20Expert%20Miners%2C%20I%20need%20professional%20ASIC%20miner%20repair%20services.%20Please%20share%20details%20about%20diagnosis%2C%20repair%20process%2C%20and%20pricing.";
+  "https://wa.me/971501562488?text=Hello%20Expert%20Miners%2C%20I%20need%20professional%20ASIC%20miner%20repair%20services.%20Please%20share%20details%20about%20diagnosis%2C%20repair%20process%2C%20and%20pricing.";
 
 const Packages = () => {
   return (
-    <section id="packages" className="py-[100px]">
-      <div className="max-w-[1180px] mx-auto px-[28px]">
+    <section
+      id="packages"
+      className="py-[100px] relative overflow-hidden"
+      style={{
+        backgroundImage: "url(/unsplash.webp)",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed",
+      }}
+    >
+      {/* Dark overlay for better text contrast */}
+      <div className="absolute inset-0 bg-black/60 dark:bg-black/40 z-0"></div>
+      <div className="max-w-[1180px] mx-auto px-[28px] relative z-10">
         <div className="mb-[56px]">
-          
           <h2 className="text-[28px] md:text-[42px] font-[700] text-white">
-            Packages for miner repairs.
+            <span className="gold-text">Packages</span> <span className="packages-subtitle"> for miner repairs.</span>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-[24px]">
           <div className="bg-navy-panel border border-navy-line rounded-[12px] p-[38px_32px] relative">
-            <h3 className="text-[22px] font-[700] text-white mb-[6px]">Starter Package</h3>
+            <h3 className="text-[22px] font-[700] text-white mb-[6px]">
+              Starter Package
+            </h3>
             <p className="text-[13.5px] text-[#9aa0c2] mb-[26px]">
               For individual miners and small setups.
             </p>
@@ -48,7 +60,9 @@ const Packages = () => {
             <span className="absolute -top-[13px] right-[28px] bg-gold text-[#161005] font-mono text-[11px] font-[600] tracking-[0.04em] px-[12px] py-[5px] rounded-full">
               Premium Fit
             </span>
-            <h3 className="text-[22px] font-[700] text-white mb-[6px]">Premium Fit</h3>
+            <h3 className="text-[22px] font-[700] text-white mb-[6px]">
+              Premium Fit
+            </h3>
             <p className="text-[13.5px] text-[#9aa0c2] mb-[26px]">
               For mining operations and fleets.
             </p>
