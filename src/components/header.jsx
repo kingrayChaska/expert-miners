@@ -48,7 +48,7 @@ const Header = ({ theme, toggleTheme }) => {
             href="https://gentle-scripts-run.lovable.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden sm:flex items-center gap-[7px] font-mono text-[12px] tracking-[0.06em] px-[16px] py-[9px] border border-navy-line rounded-[5px] text-[#9aa0c2] hover:border-gold hover:text-gold transition-colors"
+            className="admin-btn hidden sm:flex items-center gap-[7px] font-mono text-[12px] tracking-[0.06em] px-[16px] py-[9px] border border-navy-line rounded-[5px] text-gray-300 dark:text-[#9aa0c2] hover:border-gold hover:text-gold transition-colors"
           >
             <svg
               viewBox="0 0 24 24"
@@ -112,7 +112,7 @@ const Header = ({ theme, toggleTheme }) => {
               key={link.href}
               href={link.href}
               onClick={handleToggle}
-              className="text-[15px] text-[#9aa0c2] hover:text-white"
+              className="text-[15px] text-gray-300 hover:text-white"
             >
               {link.label}
             </a>
@@ -121,7 +121,7 @@ const Header = ({ theme, toggleTheme }) => {
             href="https://gentle-scripts-run.lovable.app"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[15px] text-gold"
+            className="text-[15px] text-gray-300 dark:text-[#9aa0c2]"
           >
             Admin Login
           </a>

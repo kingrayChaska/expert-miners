@@ -35,7 +35,7 @@ const Hero = () => {
       />
 
       <div className="relative max-w-[1180px] mx-auto px-[28px] grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-[60px] items-center">
-        <div>
+        <div className="hero-content">
           <h1 className="text-[34px] md:text-[46px] lg:text-[58px] leading-[1.08] font-[700] text-white mb-[22px]">
             Precision repair for miners that can&apos;t afford{" "}
             <span className="gold-text">downtime</span>.
@@ -52,13 +52,13 @@ const Hero = () => {
               href={WHATSAPP_LINK}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-[8px] px-[26px] py-[14px] rounded-[6px] bg-gold text-[#161005] font-[600] text-[14.5px] hover:bg-[#f2b558] hover:-translate-y-[1px] transition-all"
+              className="hero-btn-primary inline-flex items-center gap-[8px] px-[26px] py-[14px] rounded-[6px] bg-gold text-[#161005] font-[600] text-[14.5px] hover:bg-[#f2b558]"
             >
               Message Our Repair Team
             </a>
             <a
               href="#services"
-              className="inline-flex items-center gap-[8px] px-[26px] py-[14px] rounded-[6px] border border-navy-line text-white font-[600] text-[14.5px] hover:border-gold hover:text-gold transition-all"
+              className="hero-btn-outline inline-flex items-center gap-[8px] px-[26px] py-[14px] rounded-[6px] border border-navy-line text-white font-[600] text-[14.5px] hover:border-gold hover:text-gold"
             >
               View Services
             </a>
