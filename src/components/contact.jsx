@@ -9,6 +9,7 @@ const labelClass =
 
 const Contact = () => {
   const [status, setStatus] = useState("idle"); // idle | sending | success | error
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,21 +20,47 @@ const Contact = () => {
     formData.append("subject", "New Miner Repair Request — Expert Miners");
 
     setStatus("sending");
+    setErrorMessage("");
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         body: formData,
+        headers: {
+          Accept: "application/json",
+        },
       });
-      const result = await response.json();
+
+      const rawText = await response.text();
+      let result = {};
+
+      try {
+        result = rawText ? JSON.parse(rawText) : {};
+      } catch {
+        result = {
+          success: false,
+          message:
+            rawText || "The contact service returned an unexpected response.",
+        };
+      }
 
       if (result.success) {
         setStatus("success");
+        setErrorMessage("");
         form.reset();
       } else {
+        console.error("Web3Forms submission failed:", result);
+        setErrorMessage(
+          result.message ||
+            "Something went wrong sending your request. Please try again, or message us on WhatsApp instead.",
+        );
         setStatus("error");
       }
     } catch (err) {
+      console.error("Web3Forms request error:", err);
+      setErrorMessage(
+        "The contact service is not responding right now. Please try again in a moment, or message us on WhatsApp instead.",
+      );
       setStatus("error");
     }
   };
@@ -159,8 +186,7 @@ const Contact = () => {
             )}
             {status === "error" && (
               <div className="mt-[14px] font-mono text-[13.5px] text-red-400">
-                Something went wrong sending your request. Please try again, or
-                message us on WhatsApp instead.
+                {errorMessage}
               </div>
             )}
           </form>
