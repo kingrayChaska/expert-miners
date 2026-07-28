@@ -66,21 +66,21 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="py-[100px]">
-      <div className="max-w-[1180px] mx-auto px-[28px]">
-        <div className="mb-[56px]">
-          <h2 className="text-[28px] md:text-[42px] font-[700] text-white mb-[16px]">
+    <section id="contact" className="py-25">
+      <div className="max-w-295 mx-auto px-7">
+        <div className="mb-14">
+          <h2 className="text-[28px] md:text-[42px] font-bold text-white mb-4">
             Have a miner that needs <span className="gold-text">repair?</span>
           </h2>
-          <p className="text-[17px] text-[#9aa0c2] max-w-[560px]">
+          <p className="text-[17px] text-[#9aa0c2] max-w-140">
             Fill out the form and our team will get in touch — or message us
             directly on WhatsApp for urgent issues.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-[50px]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12.5">
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-[16px] mb-[18px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4.5">
               <div>
                 <label className={labelClass}>Full Name</label>
                 <input
@@ -103,7 +103,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-[16px] mb-[18px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4.5">
               <div>
                 <label className={labelClass}>Phone / WhatsApp</label>
                 <input
@@ -127,7 +127,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-[16px] mb-[18px]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4.5">
               <div>
                 <label className={labelClass}>Miner Model</label>
                 <input
@@ -151,7 +151,7 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="mb-[18px]">
+            <div className="mb-4.5">
               <label className={labelClass}>Repair Urgency</label>
               <select name="urgency" className={inputClass}>
                 <option>Normal</option>
@@ -160,7 +160,7 @@ const Contact = () => {
               </select>
             </div>
 
-            <div className="mb-[18px]">
+            <div className="mb-4.5">
               <label className={labelClass}>Describe the Issue</label>
               <textarea
                 name="message"
@@ -173,83 +173,83 @@ const Contact = () => {
             <button
               type="submit"
               disabled={status === "sending"}
-              className="px-[26px] py-[14px] rounded-[6px] bg-gold text-[#161005] font-[600] text-[14.5px] hover:bg-[#f2b558] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+              className="px-6.5 py-3.5 rounded-[6px] bg-gold text-[#161005] font-semibold text-[14.5px] hover:bg-[#f2b558] transition-all disabled:opacity-60 disabled:cursor-not-allowed"
             >
               {status === "sending" ? "Sending..." : "Send Request"}
             </button>
 
             {status === "success" && (
-              <div className="mt-[14px] font-mono text-[13.5px] text-gold">
+              <div className="mt-3.5 font-mono text-[13.5px] text-gold">
                 Thanks — your request has been sent. Our team will reach out
                 shortly.
               </div>
             )}
             {status === "error" && (
-              <div className="mt-[14px] font-mono text-[13.5px] text-red-400">
+              <div className="mt-3.5 font-mono text-[13.5px] text-red-400">
                 {errorMessage}
               </div>
             )}
           </form>
 
-          <div className="bg-navy-panel border border-navy-line rounded-[12px] p-[34px]">
-            <div className="flex gap-[16px] py-[16px] border-b border-navy-line">
-              <div className="w-[38px] h-[38px] rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold flex-shrink-0">
+          <div className="bg-navy-panel border border-navy-line rounded-[12px] p-8.5">
+            <div className="flex gap-4 py-4 border-b border-navy-line">
+              <div className="w-9.5 h-9.5 rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold shrink-0">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="w-[17px] h-[17px]"
+                  className="w-4.25 h-4.25"
                 >
                   <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.11 4.18 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.9.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z" />
                 </svg>
               </div>
               <div>
-                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-[3px]">
+                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-0.75">
                   Call Us Anytime
                 </div>
                 <div className="text-[14.5px] text-white">+971 50 156 2488</div>
               </div>
             </div>
 
-            <div className="flex gap-[16px] py-[16px] border-b border-navy-line">
-              <div className="w-[38px] h-[38px] rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold flex-shrink-0">
+            <div className="flex gap-4 py-4 border-b border-navy-line">
+              <div className="w-9.5 h-9.5 rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold shrink-0">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="w-[17px] h-[17px]"
+                  className="w-4.25 h-4.25"
                 >
                   <path d="M22 6l-10 7L2 6" />
                   <rect x="2" y="4" width="20" height="16" rx="2" />
                 </svg>
               </div>
               <div>
-                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-[3px]">
+                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-0.75">
                   Email
                 </div>
                 <div className="text-[14.5px] text-white">
-                  info@expertminers.com
+                  info@expertminersuae.com
                 </div>
               </div>
             </div>
 
-            <div className="flex gap-[16px] py-[16px] border-b border-navy-line">
-              <div className="w-[38px] h-[38px] rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold flex-shrink-0">
+            <div className="flex gap-4 py-4 border-b border-navy-line">
+              <div className="w-9.5 h-9.5 rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold shrink-0">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="w-[17px] h-[17px]"
+                  className="w-4.25 h-4.25"
                 >
                   <path d="M21 10c0 7-9 12-9 12s-9-5-9-12a9 9 0 0 1 18 0z" />
                   <circle cx="12" cy="10" r="3" />
                 </svg>
               </div>
               <div>
-                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-[3px]">
+                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-0.75">
                   Visit Our Location
                 </div>
                 <div className="text-[14.5px] text-white">
@@ -258,21 +258,21 @@ const Contact = () => {
               </div>
             </div>
 
-            <div className="flex gap-[16px] py-[16px]">
-              <div className="w-[38px] h-[38px] rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold flex-shrink-0">
+            <div className="flex gap-4 py-4">
+              <div className="w-9.5 h-9.5 rounded-[7px] bg-navy-panel2 border border-navy-line flex items-center justify-center text-gold shrink-0">
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
                   strokeWidth="2"
-                  className="w-[17px] h-[17px]"
+                  className="w-4.25 h-4.25"
                 >
                   <circle cx="12" cy="12" r="10" />
                   <path d="M12 6v6l4 2" />
                 </svg>
               </div>
               <div>
-                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-[3px]">
+                <div className="font-mono text-[12px] uppercase tracking-[0.04em] text-[#9aa0c2] mb-0.75">
                   Hours
                 </div>
                 <div className="text-[14.5px] text-white">

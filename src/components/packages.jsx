@@ -10,7 +10,6 @@ const Packages = () => {
         backgroundImage: "url(/unsplash.webp)",
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundAttachment: "fixed",
       }}
     >
       {/* Dark overlay for better text contrast */}

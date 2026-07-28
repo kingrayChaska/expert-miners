@@ -1,8 +1,18 @@
-/* stylelint-disable */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-/* stylelint-enable */
+@import "tailwindcss";
+
+/* Tailwind theme tokens — migrated from the old tailwind.config.cjs
+   (colors.navy / colors.gold / fontFamily.display / fontFamily.mono) */
+@theme {
+  --color-navy: #0a0e3d;
+  --color-navy-deep: #05061f;
+  --color-navy-panel: #0d1030;
+  --color-navy-panel2: #141838;
+  --color-navy-line: #23274d;
+  --color-gold: #f5c518;
+  --color-gold-dim: #8a6d10;
+  --font-display: "Poppins", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
 
 :root {
   color-scheme: dark;
@@ -39,9 +49,6 @@ body {
   background-color: var(--bg-body);
   color: var(--text-main);
   font-family: "Poppins", sans-serif;
-  transition:
-    background-color 0.25s ease,
-    color 0.25s ease;
 }
 
 .bg-navy-deep {
@@ -294,4 +301,125 @@ html.theme-light select {
 
 .service-card.visible {
   animation: fadeUp 0.55s ease both;
+}
+
+/* =======================================================================
+   RX EXPERT MINERS admin app — scoped under .data-bridge-app
+   ======================================================================= */
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.data-bridge-app.dark *));
+
+.data-bridge-app {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 4%;
+  --card: 0 0% 98%;
+  --card-foreground: 240 10% 4%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 4%;
+  --primary: 38 92% 55%;
+  --primary-foreground: 20 40% 10%;
+  --secondary: 240 6% 18%;
+  --secondary-foreground: 40 20% 96%;
+  --muted: 240 5% 92%;
+  --muted-foreground: 240 5% 45%;
+  --accent: 38 60% 18%;
+  --accent-foreground: 43 96% 70%;
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 0 85% 97%;
+  --success: 152 55% 45%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 55%;
+  --warning-foreground: 20 40% 10%;
+  --border: 240 5% 84%;
+  --input: 240 5% 84%;
+  --ring: 38 92% 55%;
+  --radius: 0.75rem;
+  --chart-1: 38 92% 60%;
+  --chart-2: 27 90% 58%;
+  --chart-3: 160 55% 45%;
+  --chart-4: 200 70% 55%;
+  --chart-5: 280 45% 60%;
+  --sidebar-background: 0 0% 95%;
+  --sidebar-foreground: 240 10% 4%;
+  --sidebar-primary: 38 92% 55%;
+  --sidebar-primary-foreground: 20 40% 10%;
+  --sidebar-accent: 240 6% 15%;
+  --sidebar-accent-foreground: 40 20% 96%;
+  --sidebar-border: 240 5% 84%;
+  --sidebar-ring: 38 92% 55%;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+  --font-arabic: "Cairo", sans-serif;
+
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: var(--font-body);
+  min-height: 100dvh;
+}
+
+.data-bridge-app.dark {
+  --background: 240 10% 6%;
+  --foreground: 40 20% 96%;
+  --card: 240 8% 9%;
+  --card-foreground: 40 20% 96%;
+  --popover: 240 8% 11%;
+  --popover-foreground: 40 20% 96%;
+  --primary: 38 92% 55%;
+  --primary-foreground: 20 40% 10%;
+  --secondary: 240 6% 18%;
+  --secondary-foreground: 40 20% 96%;
+  --muted: 240 6% 15%;
+  --muted-foreground: 240 5% 65%;
+  --accent: 38 60% 18%;
+  --accent-foreground: 43 96% 70%;
+  --destructive: 0 72% 55%;
+  --destructive-foreground: 0 85% 97%;
+  --success: 152 55% 45%;
+  --success-foreground: 0 0% 100%;
+  --warning: 38 92% 55%;
+  --warning-foreground: 20 40% 10%;
+  --border: 240 6% 18%;
+  --input: 240 6% 18%;
+  --ring: 38 92% 55%;
+  --chart-1: 38 92% 60%;
+  --chart-2: 27 90% 58%;
+  --chart-3: 160 55% 45%;
+  --chart-4: 200 70% 55%;
+  --chart-5: 280 45% 60%;
+  --sidebar-background: 240 10% 7%;
+  --sidebar-foreground: 40 20% 96%;
+  --sidebar-primary: 38 92% 55%;
+  --sidebar-primary-foreground: 20 40% 10%;
+  --sidebar-accent: 240 6% 15%;
+  --sidebar-accent-foreground: 40 20% 96%;
+  --sidebar-border: 240 6% 18%;
+  --sidebar-ring: 38 92% 55%;
+}
+
+.data-bridge-app *,
+.data-bridge-app *::before,
+.data-bridge-app *::after {
+  border-color: hsl(var(--border));
+}
+
+.data-bridge-app[dir="rtl"] {
+  font-family: var(--font-arabic);
+}
+
+.data-bridge-app .glass-card {
+  background-color: hsl(var(--card) / 0.72);
+  backdrop-filter: blur(10px);
+  border: 1px solid hsl(var(--border) / 0.6);
+  box-shadow:
+    0 1px 2px 0 hsl(0 0% 0% / 0.3),
+    0 8px 24px -8px hsl(0 0% 0% / 0.45);
+}
+
+.data-bridge-app .data-table-row {
+  border-bottom: 1px solid hsl(var(--border) / 0.6);
+  transition: background-color 150ms;
+}
+.data-bridge-app .data-table-row:hover {
+  background-color: hsl(var(--muted) / 0.5);
 }
