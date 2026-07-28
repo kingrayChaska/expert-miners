@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
-@source "../";
 @import "tw-animate-css";
+
+@source "../";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -9,6 +10,11 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Space Grotesk", sans-serif;
+  --font-arabic: "Cairo", sans-serif;
+
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
   --color-card: hsl(var(--card));
@@ -85,9 +91,6 @@
   --sidebar-accent-foreground: 240 10% 10%;
   --sidebar-border: 240 5% 84%;
   --sidebar-ring: 38 92% 45%;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-body: "Space Grotesk", sans-serif;
-  --font-arabic: "Cairo", sans-serif;
 }
 
 .dark {
@@ -114,7 +117,6 @@
   --border: 240 6% 18%;
   --input: 240 6% 18%;
   --ring: 38 92% 55%;
-  --radius: 0.75rem;
   --chart-1: 38 92% 60%;
   --chart-2: 27 90% 58%;
   --chart-3: 160 55% 45%;
@@ -128,9 +130,6 @@
   --sidebar-accent-foreground: 40 20% 96%;
   --sidebar-border: 240 6% 18%;
   --sidebar-ring: 38 92% 55%;
-  --font-display: "Space Grotesk", sans-serif;
-  --font-body: "Space Grotesk", sans-serif;
-  --font-arabic: "Cairo", sans-serif;
 }
 
 @layer base {
