@@ -9,8 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
-type AuthMode = "login" | "signup";
-
+type AuthMode = "login" | "signup"a
 const LoginPage = () => {
   const { t, lang } = useLanguage();
   const { user, loading: authLoading } = useAuth();
@@ -34,7 +33,7 @@ const LoginPage = () => {
   const handleGoogleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "google",
-      options: { redirectTo: window.location.origin },
+      options: { redirectTo: window.location.origin + "/admin/login" },
     });
     if (error) toast.error(error.message);
   };
@@ -42,10 +41,8 @@ const LoginPage = () => {
   const handleAppleSignIn = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "apple",
-      options: { redirectTo: window.location.origin },
+      options: { redirectTo: window.location.origin + "/admin/login" },
     });
-    if (error) toast.error(error.message);
-  };
 
   const handleEmailAuth = async (e: React.FormEvent) => {
     e.preventDefault();
