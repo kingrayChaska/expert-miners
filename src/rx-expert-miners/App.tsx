@@ -7,7 +7,6 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { useApprovalNotifications } from "@/hooks/useApprovalNotifications";
 import { supabase } from "@/services/supabase";
 import AppRoutes from "@/routes/AppRoutes";
-import { applyRxTokens } from "@/components/shared/ThemeToggle";
 
 const queryClient = new QueryClient();
 
@@ -35,7 +34,6 @@ const App = () => {
     const stored = localStorage.getItem('rx-theme');
     const isDark = stored ? stored === 'dark' : true;
     if (wrapperRef.current) wrapperRef.current.classList.toggle('dark', isDark);
-    applyRxTokens(isDark);
   }, []);
 
   return (
