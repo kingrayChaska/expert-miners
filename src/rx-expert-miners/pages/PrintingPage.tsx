@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import logo from "../../assets/logo.png";
 import {
   getReceiveQueue,
   getDispatchQueue,
@@ -500,7 +499,7 @@ const PrintingPage = () => {
       >
         <div className="flex items-center justify-between border-b border-black pb-2 mb-2">
           <img
-            src={logo}
+            src="/logo.png"
             alt="RX Expert Miners"
             className="h-14 object-contain"
           />
