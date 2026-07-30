@@ -88,9 +88,16 @@ const UsersPage = () => {
   };
 
   const rejectUser = async (profile: Profile) => {
-    const { error } = await supabase.from('profiles').update({ is_approved: false, is_active: false }).eq('id', profile.id);
+    // Calls the delete-user edge function to remove the Supabase Auth
+    // account outright — profiles/user_roles cascade-delete automatically.
+    // (A client-side .delete() on `profiles` alone only removes the app-level
+    // row; the underlying login would still exist, which caused confusing
+    // "already registered" / stuck-pending states for anyone who tried again.)
+    const { error } = await supabase.functions.invoke('delete-user', {
+      body: { target_user_id: profile.user_id },
+    });
     if (error) toast.error(sanitizeError(error));
-    else { toast.success(`${profile.email} rejected`); fetchProfiles(); }
+    else { toast.success(`${profile.email} rejected and removed`); fetchProfiles(); }
   };
 
   const toggleAdmin = async (profile: Profile) => {
