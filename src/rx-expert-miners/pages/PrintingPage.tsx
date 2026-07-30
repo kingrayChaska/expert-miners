@@ -1,10 +1,10 @@
 import { useState, useRef, useEffect } from "react";
-import { Printer, Copy, Check, Trash2, Download } from "lucide-react";
+import { Printer, Copy, Check, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
-import logo from "@/assets/logo.png";
+import logo from "../../assets/logo.png";
 import {
   getReceiveQueue,
   getDispatchQueue,
@@ -64,6 +64,133 @@ const emptyDispatch = (): DispatchRow => ({
 });
 
 const today = () => new Date().toISOString().slice(0, 10);
+
+// --- column definitions (single source of truth for both the edit table and the print table) ---
+type Column<T> = { key: keyof T; label: string; type?: "text" | "date" };
+
+const RECEIVE_COLUMNS: Column<ReceiveRow>[] = [
+  { key: "entryData", label: "Entry Data" },
+  { key: "clientName", label: "Client Name" },
+  { key: "serialNumber", label: "Serial Number" },
+  { key: "psuSerial", label: "PSU Serial" },
+  { key: "hbSerial", label: "HB Serial" },
+  { key: "minerModel", label: "Miner Model" },
+  { key: "location", label: "Location" },
+  { key: "note", label: "Note" },
+];
+
+const DISPATCH_COLUMNS: Column<DispatchRow>[] = [
+  { key: "serialNumber", label: "Serial Number" },
+  { key: "minerModel", label: "Miner Model" },
+  { key: "psuNumber", label: "PSU Number" },
+  { key: "hashboardSerial", label: "Hashboard Serial" },
+  { key: "workOrder", label: "Work Order" },
+  { key: "finalStatus", label: "Final Status" },
+  { key: "dispatchDate", label: "Dispatch Date", type: "date" },
+  { key: "location", label: "Location" },
+];
+
+// --- generic row helpers (shared by receive + dispatch state) ---
+const rowHasData = (row: Record<string, string>) =>
+  Object.values(row).some((v) => v.trim() !== "");
+
+function updateRow<T>(rows: T[], i: number, key: keyof T, value: string): T[] {
+  return rows.map((r, idx) => (idx === i ? { ...r, [key]: value } : r));
+}
+
+function removeRow<T>(rows: T[], i: number, makeEmpty: () => T): T[] {
+  return rows.length === 1 ? [makeEmpty()] : rows.filter((_, idx) => idx !== i);
+}
+
+// --- shared table components ---
+function EditableTable<T extends Record<string, string>>({
+  columns,
+  rows,
+  onChange,
+  onRemove,
+}: {
+  columns: Column<T>[];
+  rows: T[];
+  onChange: (i: number, key: keyof T, value: string) => void;
+  onRemove: (i: number) => void;
+}) {
+  return (
+    <table className="w-full text-sm border">
+      <thead className="bg-muted">
+        <tr>
+          {columns.map((c) => (
+            <th key={String(c.key)} className="border px-2 py-1 text-left">
+              {c.label}
+            </th>
+          ))}
+          <th className="border px-2 py-1 w-10" />
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row, i) => (
+          <tr key={i}>
+            {columns.map((c) => (
+              <td key={String(c.key)} className="border p-0">
+                <Input
+                  type={c.type ?? "text"}
+                  className="h-8 border-0 rounded-none"
+                  value={row[c.key]}
+                  onChange={(e) => onChange(i, c.key, e.target.value)}
+                />
+              </td>
+            ))}
+            <td className="border p-0 text-center">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-7 w-7"
+                onClick={() => onRemove(i)}
+              >
+                <Trash2 className="h-3.5 w-3.5 text-destructive" />
+              </Button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+function PrintTable<T extends Record<string, string>>({
+  columns,
+  rows,
+}: {
+  columns: Column<T>[];
+  rows: T[];
+}) {
+  return (
+    <table className="w-full text-xs border border-black border-collapse">
+      <thead>
+        <tr>
+          {columns.map((c) => (
+            <th
+              key={String(c.key)}
+              className="border border-black px-1 py-1 text-left bg-gray-100"
+            >
+              {c.label}
+            </th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row, i) => (
+          <tr key={i}>
+            {columns.map((c) => (
+              <td key={String(c.key)} className="border border-black px-1 py-1">
+                {row[c.key]}
+              </td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
 
 const PrintingPage = () => {
   const [mode, setMode] = useState<"receive" | "dispatch">("receive");
@@ -140,25 +267,17 @@ const PrintingPage = () => {
   }, []);
 
   const updateR = (i: number, k: keyof ReceiveRow, v: string) =>
-    setRRows((rs) => rs.map((r, idx) => (idx === i ? { ...r, [k]: v } : r)));
+    setRRows((rs) => updateRow(rs, i, k, v));
   const updateD = (i: number, k: keyof DispatchRow, v: string) =>
-    setDRows((rs) => rs.map((r, idx) => (idx === i ? { ...r, [k]: v } : r)));
+    setDRows((rs) => updateRow(rs, i, k, v));
 
   const removeR = (i: number) =>
-    setRRows((rs) =>
-      rs.length === 1 ? [emptyReceive()] : rs.filter((_, idx) => idx !== i),
-    );
+    setRRows((rs) => removeRow(rs, i, emptyReceive));
   const removeD = (i: number) =>
-    setDRows((rs) =>
-      rs.length === 1 ? [emptyDispatch()] : rs.filter((_, idx) => idx !== i),
-    );
+    setDRows((rs) => removeRow(rs, i, emptyDispatch));
 
-  const rQuantity = rRows.filter((r) =>
-    Object.values(r).some((v) => v.trim() !== ""),
-  ).length;
-  const dQuantity = dRows.filter((r) =>
-    Object.values(r).some((v) => String(v).trim() !== ""),
-  ).length;
+  const rQuantity = rRows.filter(rowHasData).length;
+  const dQuantity = dRows.filter(rowHasData).length;
 
   const handlePrint = () => {
     window.print();
@@ -201,39 +320,36 @@ const PrintingPage = () => {
   useEffect(() => {
     if (!queuesReadyRef.current) return;
     const items = normalizeReceiveQueue(
-      rRows
-        .filter((r) => Object.values(r).some((v) => v.trim() !== ""))
-        .map((r) => ({
-          entryData: r.entryData,
-          clientName: r.clientName,
-          serialNumber: r.serialNumber,
-          psuSerial: r.psuSerial,
-          hbSerial: r.hbSerial,
-          minerModel: r.minerModel,
-          location: r.location,
-          note: r.note,
-        })),
+      rRows.filter(rowHasData).map((r) => ({
+        entryData: r.entryData,
+        clientName: r.clientName,
+        serialNumber: r.serialNumber,
+        psuSerial: r.psuSerial,
+        hbSerial: r.hbSerial,
+        minerModel: r.minerModel,
+        location: r.location,
+        note: r.note,
+      })),
     );
     selfWriteRef.current += 1;
     setReceiveQueue(items);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [rRows]);
+
   useEffect(() => {
     if (!queuesReadyRef.current) return;
     const items = normalizeDispatchQueue(
-      dRows
-        .filter((r) => Object.values(r).some((v) => String(v).trim() !== ""))
-        .map((r) => ({
-          serialNumber: r.serialNumber,
-          minerModel: r.minerModel,
-          psuNumber: r.psuNumber,
-          hashboardSerial: r.hashboardSerial,
-          workOrder: r.workOrder,
-          finalStatus: r.finalStatus,
-          dispatchDate: r.dispatchDate,
-          location: r.location,
-          customerName: dCustomerName,
-        })),
+      dRows.filter(rowHasData).map((r) => ({
+        serialNumber: r.serialNumber,
+        minerModel: r.minerModel,
+        psuNumber: r.psuNumber,
+        hashboardSerial: r.hashboardSerial,
+        workOrder: r.workOrder,
+        finalStatus: r.finalStatus,
+        dispatchDate: r.dispatchDate,
+        location: r.location,
+        customerName: dCustomerName,
+      })),
     );
     selfWriteRef.current += 1;
     setDispatchQueue(items);
@@ -319,52 +435,12 @@ const PrintingPage = () => {
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border">
-              <thead className="bg-muted">
-                <tr>
-                  {[
-                    "Entry Data",
-                    "Client Name",
-                    "Serial Number",
-                    "PSU Serial",
-                    "HB Serial",
-                    "Miner Model",
-                    "Location",
-                    "Note",
-                  ].map((h) => (
-                    <th key={h} className="border px-2 py-1 text-left">
-                      {h}
-                    </th>
-                  ))}
-                  <th className="border px-2 py-1 w-10"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {rRows.map((r, i) => (
-                  <tr key={i}>
-                    {(Object.keys(r) as (keyof ReceiveRow)[]).map((k) => (
-                      <td key={k} className="border p-0">
-                        <Input
-                          className="h-8 border-0 rounded-none"
-                          value={r[k]}
-                          onChange={(e) => updateR(i, k, e.target.value)}
-                        />
-                      </td>
-                    ))}
-                    <td className="border p-0 text-center">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7"
-                        onClick={() => removeR(i)}
-                      >
-                        <Trash2 className="h-3.5 w-3.5 text-destructive" />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <EditableTable
+              columns={RECEIVE_COLUMNS}
+              rows={rRows}
+              onChange={updateR}
+              onRemove={removeR}
+            />
           </div>
           <Button
             size="sm"
@@ -400,53 +476,12 @@ const PrintingPage = () => {
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-sm border">
-              <thead className="bg-muted">
-                <tr>
-                  {[
-                    "Serial Number",
-                    "Miner Model",
-                    "PSU Number",
-                    "Hashboard Serial",
-                    "Work Order",
-                    "Final Status",
-                    "Dispatch Date",
-                    "Location",
-                  ].map((h) => (
-                    <th key={h} className="border px-2 py-1 text-left">
-                      {h}
-                    </th>
-                  ))}
-                  <th className="border px-2 py-1 w-10"></th>
-                </tr>
-              </thead>
-              <tbody>
-                {dRows.map((r, i) => (
-                  <tr key={i}>
-                    {(Object.keys(r) as (keyof DispatchRow)[]).map((k) => (
-                      <td key={k} className="border p-0">
-                        <Input
-                          type={k === "dispatchDate" ? "date" : "text"}
-                          className="h-8 border-0 rounded-none"
-                          value={r[k]}
-                          onChange={(e) => updateD(i, k, e.target.value)}
-                        />
-                      </td>
-                    ))}
-                    <td className="border p-0 text-center">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-7 w-7"
-                        onClick={() => removeD(i)}
-                      >
-                        <Trash2 className="h-3.5 w-3.5 text-destructive" />
-                      </Button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <EditableTable
+              columns={DISPATCH_COLUMNS}
+              rows={dRows}
+              onChange={updateD}
+              onRemove={removeD}
+            />
           </div>
           <Button
             size="sm"
@@ -492,57 +527,7 @@ const PrintingPage = () => {
               </div>
             </div>
             <div className="text-sm italic">Note: "{WAREHOUSE_NOTE}"</div>
-            <table className="w-full text-xs border border-black border-collapse">
-              <thead>
-                <tr>
-                  {[
-                    "Entry Data",
-                    "Client Name",
-                    "Serial Number",
-                    "PSU Serial",
-                    "HB Serial",
-                    "Miner Model",
-                    "Location",
-                    "Note",
-                  ].map((h) => (
-                    <th
-                      key={h}
-                      className="border border-black px-1 py-1 text-left bg-gray-100"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {rRows.map((r, i) => (
-                  <tr key={i}>
-                    <td className="border border-black px-1 py-1">
-                      {r.entryData}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.clientName}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.serialNumber}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.psuSerial}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.hbSerial}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.minerModel}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.location}
-                    </td>
-                    <td className="border border-black px-1 py-1">{r.note}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <PrintTable columns={RECEIVE_COLUMNS} rows={rRows} />
           </>
         ) : (
           <>
@@ -559,59 +544,7 @@ const PrintingPage = () => {
               </div>
             </div>
             <div className="text-sm italic">Note: "{WAREHOUSE_NOTE}"</div>
-            <table className="w-full text-xs border border-black border-collapse">
-              <thead>
-                <tr>
-                  {[
-                    "Serial Number",
-                    "Miner Model",
-                    "PSU Number",
-                    "Hashboard Serial",
-                    "Work Order",
-                    "Final Status",
-                    "Dispatch Date",
-                    "Location",
-                  ].map((h) => (
-                    <th
-                      key={h}
-                      className="border border-black px-1 py-1 text-left bg-gray-100"
-                    >
-                      {h}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {dRows.map((r, i) => (
-                  <tr key={i}>
-                    <td className="border border-black px-1 py-1">
-                      {r.serialNumber}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.minerModel}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.psuNumber}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.hashboardSerial}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.workOrder}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.finalStatus}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.dispatchDate}
-                    </td>
-                    <td className="border border-black px-1 py-1">
-                      {r.location}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            <PrintTable columns={DISPATCH_COLUMNS} rows={dRows} />
           </>
         )}
       </div>
