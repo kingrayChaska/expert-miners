@@ -465,7 +465,7 @@ const PrintingPage = () => {
       >
         <div className="flex items-center justify-between border-b border-black pb-2 mb-2">
           <img
-            src="/EMP-preview.webp"
+            src={logo}
             alt="RX Expert Miners"
             className="h-14 object-contain"
           />
