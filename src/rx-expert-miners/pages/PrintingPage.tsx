@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
-import rxLogo from '@/assets/rx-logo.asset.json';
+import logo from '@/assets/logo.png';
 import {
   getReceiveQueue,
   getDispatchQueue,
@@ -384,7 +384,7 @@ const PrintingPage = () => {
       {/* Printable area */}
       <div ref={printRef} className="print-area rounded-lg border border-border bg-white text-black p-6 space-y-3">
         <div className="flex items-center justify-between border-b border-black pb-2 mb-2">
-          <img src={rxLogo.url} alt="RX Expert Miners" className="h-14 object-contain" />
+          <img src={logo} alt="RX Expert Miners" className="h-14 object-contain" />
           <div className="text-right text-xs leading-tight">
             <div className="font-bold text-base">RX EXPERT MINERS</div>
             <div>Hardware Service & Maintenance</div>
